@@ -1,0 +1,7 @@
+__pycache__/
+Include
+indexdir/
+Lib/
+Scripts/
+pip-selfcheck.json
+pyvenv.cfg
