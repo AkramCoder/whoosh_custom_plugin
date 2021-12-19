@@ -15,10 +15,18 @@ class CustomPlugin(qparser.plugins.Plugin):
         newgroup = group.empty_copy()
 
         for i, node in enumerate(group):
-            print("node", node)
             if node.has_fieldname:
                 if node.has_text:
-                    if node.text == 'ملك':
+                    if i == 0:
+                        try:
+                            index = node.text.index(">>")
+                            if index == 0:
+                                node_text = node.text[2:]
+                        except:
+                            raise "The node should start by '>>'"
+                    else:
+                        node_text = ""
+                    if node.text == 'ملك' or node_text == 'ملك':
                         for term in terms:
                             newnode = qparser.WordNode(term)
                             newnode.set_fieldname(self.fieldname)
@@ -36,5 +44,5 @@ class CustomPlugin(qparser.plugins.Plugin):
 
 qp = qparser.QueryParser("content", schema=None)
 qp.add_plugin(CustomPlugin(qp.fieldname))
-q = qp.parse(u"اكل ملك")
+q = qp.parse(u">>ملك")
 print(q)
